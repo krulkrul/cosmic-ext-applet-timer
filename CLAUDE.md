@@ -2,19 +2,24 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build commands
+## Build & deploy
 
 ```bash
 cargo build                   # debug build
 cargo build --release         # release build (size-optimised via Cargo.toml profile)
 cargo clippy                  # lint
-./dev-reload.sh               # release build + restart cosmic-panel (dev iteration)
+./setup.sh                    # first-time: release build + install desktop entry
+./dev-reload.sh               # subsequent: release build + restart cosmic-panel
 ```
 
 Run directly (requires a COSMIC/Wayland session):
 ```bash
 ./target/debug/cosmic-ext-applet-timer
 ```
+
+### Desktop entry
+
+`setup.sh` writes `~/.local/share/applications/com.krul.CosmicAppletTimer.desktop` with `Exec` pointing at `$(pwd)/target/release/cosmic-ext-applet-timer`. The required fields are `NoDisplay=true` and `X-CosmicApplet=true` (camelCase — `X-COSMIC-Applet` is wrong and will not show up in the panel).
 
 ## Purpose
 
